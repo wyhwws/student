@@ -50,14 +50,18 @@ public final class TasksPersistenceContract {
         public static final String TABLE_NAME = "task";
         public static final String COLUMN_NAME_ENTRY_ID = "entryid";
         public static final String COLUMN_NAME_TITLE = "title";
+        public static final String COLUMN_NAME_HISTORY = "history";
         public static final String COLUMN_NAME_DESCRIPTION = "description";
+        public static final String COLUMN_NAME_IMAGEURL = "imageUrl";
         public static final String COLUMN_NAME_COMPLETED = "completed";
         public static final Uri CONTENT_TASK_URI = BASE_CONTENT_URI.buildUpon().appendPath(TABLE_NAME).build();
         public static String[] TASKS_COLUMNS = new String[]{
                 TasksPersistenceContract.TaskEntry._ID,
                 TasksPersistenceContract.TaskEntry.COLUMN_NAME_ENTRY_ID,
                 TasksPersistenceContract.TaskEntry.COLUMN_NAME_TITLE,
+                TasksPersistenceContract.TaskEntry.COLUMN_NAME_HISTORY,
                 TasksPersistenceContract.TaskEntry.COLUMN_NAME_DESCRIPTION,
+                TasksPersistenceContract.TaskEntry.COLUMN_NAME_IMAGEURL,
                 TasksPersistenceContract.TaskEntry.COLUMN_NAME_COMPLETED};
 
         public static Uri buildTasksUriWith(long id) {

@@ -75,13 +75,14 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter,
     }
 
     @Override
-    public void saveTask(String title, String description) {
+    public void saveTask(String title,String history, String description, String imageUrl) {
         if (isNewTask()) {
-            createTask(title, description);
+            createTask(title,history, description, imageUrl);
         } else {
-            updateTask(title, description);
+            updateTask(title,history, description,imageUrl);
         }
     }
+
 
     @Override
     public void populateTask() {
@@ -102,11 +103,12 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter,
             Task task = Task.from(data);
             mAddTaskView.setDescription(task.getDescription());
             mAddTaskView.setTitle(task.getTitle());
+            mAddTaskView.setHistory(task.getHistory());
+            mAddTaskView.setImageUrl(task.getImageUrl());
         } else {
             // NO-OP, add mode.
         }
     }
-
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
 
@@ -116,8 +118,8 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter,
         return mTaskId == null;
     }
 
-    private void createTask(String title, String description) {
-        Task newTask = new Task(title, description);
+    private void createTask(String title,String history, String description, String imageUrl) {
+        Task newTask = new Task(title,history, description, imageUrl);
         if (newTask.isEmpty()) {
             mAddTaskView.showEmptyTaskError();
         } else {
@@ -126,14 +128,13 @@ public class AddEditTaskPresenter implements AddEditTaskContract.Presenter,
         }
     }
 
-    private void updateTask(String title, String description) {
+    private void updateTask(String title,String history, String description, String imageUrl) {
         if (isNewTask()) {
             throw new RuntimeException("updateTask() was called but task is new.");
         }
-        mTasksRepository.saveTask(new Task(title, description, mTaskId));
+        mTasksRepository.saveTask(new Task(title, history,description, imageUrl,  mTaskId));
         mAddTaskView.showTasksList(); // After an edit, go back to the list.
     }
-
     @Override
     public void onTaskLoaded(Task task) {
         // we don't need this result since the CursorLoader will load it for us

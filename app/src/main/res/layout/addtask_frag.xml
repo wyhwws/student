@@ -34,14 +34,50 @@
             android:hint="@string/title_hint"
             android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Title" />
-
+        <EditText
+            android:id="@+id/add_task_history"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="top"
+            android:inputType="number"
+            android:hint="@string/history_hint" />
         <EditText
             android:id="@+id/add_task_description"
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="50dp"
             android:gravity="top"
             android:hint="@string/description_hint" />
+        <EditText
+            android:id="@+id/add_task_imageUrl"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:gravity="top"
+            android:hint="@string/image_url_hint" />
 
+        <Button
+            android:id="@+id/btntakephoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/takephone" />
+
+        <Button
+            android:id="@+id/btnselectedphoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/selectphone" />
+        <Button
+            android:id="@+id/saveImage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/savephone" />
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
     </LinearLayout>
 </ScrollView>
 

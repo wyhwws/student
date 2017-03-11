@@ -28,6 +28,7 @@ import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.data.source.LoaderProvider;
 import com.example.android.architecture.blueprints.todoapp.util.ActivityUtils;
 import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingResource;
+import com.frosquivel.magicalcamera.Functionallities.PermissionGranted;
 
 /**
  * Displays an add or edit task screen.
@@ -35,10 +36,27 @@ import com.example.android.architecture.blueprints.todoapp.util.EspressoIdlingRe
 public class AddEditTaskActivity extends AppCompatActivity {
 
     public static final int REQUEST_ADD_TASK = 1;
-
+    public static PermissionGranted permissionGranted;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        permissionGranted = new PermissionGranted(this);
+        //call the permission for all that you need to use in this library
+        //This has nothing to do with the library API, I only put it as an example
+        //but if you needed call this like another versions
+        if (android.os.Build.VERSION.SDK_INT >= 24) {
+            permissionGranted.checkAllMagicalCameraPermission();
+        }else{
+            //call one on one permission
+            //permission for take photo, it is false if the user check deny
+            permissionGranted.checkCameraPermission();
+            //for search and write photoss in device internal memory
+            //normal or SD memory
+            permissionGranted.checkReadExternalPermission();
+            permissionGranted.checkWriteExternalPermission();
+            //permission for location for use the `photo information device.
+            permissionGranted.checkLocationPermission();
+        }
         setContentView(R.layout.addtask_act);
 
         // Set up the toolbar.
