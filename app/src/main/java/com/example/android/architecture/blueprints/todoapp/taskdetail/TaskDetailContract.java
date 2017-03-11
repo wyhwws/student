@@ -34,9 +34,15 @@ public interface TaskDetailContract {
 
         void showTitle(String title);
 
+        void hideHistory();
+
+        void showHistory(String history);
         void hideDescription();
 
         void showDescription(String description);
+        void hideImageUrl();
+
+        void showImageUrl(String imagUrl);
 
         void showCompletionStatus(boolean complete);
 

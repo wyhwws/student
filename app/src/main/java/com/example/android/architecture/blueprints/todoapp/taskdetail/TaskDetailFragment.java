@@ -32,12 +32,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskActivity;
 import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskFragment;
 import com.google.common.base.Preconditions;
+
+import java.io.File;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -55,9 +59,10 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
     private TaskDetailContract.Presenter mPresenter;
 
     private TextView mDetailTitle;
-
+    private TextView mDetailHistory;
     private TextView mDetailDescription;
-
+    private TextView mDetailImageUrl;
+    private ImageView imageView;
     private CheckBox mDetailCompleteStatus;
 
     public static TaskDetailFragment newInstance(@Nullable String taskId) {
@@ -81,7 +86,11 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
         View root = inflater.inflate(R.layout.taskdetail_frag, container, false);
         setHasOptionsMenu(true);
         mDetailTitle = (TextView) root.findViewById(R.id.task_detail_title);
+        mDetailHistory = (TextView) root.findViewById(R.id.task_detail_history);
         mDetailDescription = (TextView) root.findViewById(R.id.task_detail_description);
+        mDetailImageUrl = (TextView) root.findViewById(R.id.task_detail_imageUrl);
+        imageView = (ImageView)root.findViewById(R.id.task_detail_imageView);
+
         mDetailCompleteStatus = (CheckBox) root.findViewById(R.id.task_detail_complete);
 
         // Set up floating action button
@@ -127,19 +136,37 @@ public class TaskDetailFragment extends Fragment implements TaskDetailContract.V
     }
 
     @Override
+    public void hideHistory() {
+        mDetailHistory.setVisibility(View.GONE);
+    }
+    @Override
     public void hideDescription() {
         mDetailDescription.setVisibility(View.GONE);
     }
-
+    @Override
+    public void hideImageUrl() {
+        mDetailImageUrl.setVisibility(View.GONE);
+    }
     @Override
     public void hideTitle() {
         mDetailTitle.setVisibility(View.GONE);
     }
 
+    public void showHistory(@NonNull String history) {
+        mDetailHistory.setVisibility(View.VISIBLE);
+        mDetailHistory.setText(history);
+    }
     @Override
     public void showDescription(@NonNull String description) {
         mDetailDescription.setVisibility(View.VISIBLE);
         mDetailDescription.setText(description);
+    }
+    @Override
+    public void showImageUrl(@NonNull String imageUrl) {
+        mDetailImageUrl.setVisibility(View.VISIBLE);
+        mDetailImageUrl.setText(imageUrl);
+        File file = new File(imageUrl);
+        Glide.with(this).load(file).into(imageView);
     }
 
     @Override

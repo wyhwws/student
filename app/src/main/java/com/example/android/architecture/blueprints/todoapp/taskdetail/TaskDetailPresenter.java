@@ -113,18 +113,29 @@ public class TaskDetailPresenter implements TaskDetailContract.Presenter, Loader
         mTask = Task.from(data);
 
         String title = mTask.getTitle();
+        String history = mTask.getHistory();
         String description = mTask.getDescription();
-
+        String imageUrl = mTask.getImageUrl();
         if (Strings.isNullOrEmpty(title)) {
             mTaskDetailView.hideTitle();
         } else {
             mTaskDetailView.showTitle(title);
         }
 
+        if (Strings.isNullOrEmpty(history)) {
+            mTaskDetailView.hideHistory();
+        } else {
+            mTaskDetailView.showHistory(history);
+        }
         if (Strings.isNullOrEmpty(description)) {
             mTaskDetailView.hideDescription();
         } else {
             mTaskDetailView.showDescription(description);
+        }
+        if (Strings.isNullOrEmpty(imageUrl)) {
+            mTaskDetailView.hideDescription();
+        } else {
+            mTaskDetailView.showImageUrl(imageUrl);
         }
         mTaskDetailView.showCompletionStatus(mTask.isCompleted());
         mTaskDetailView.setLoadingIndicator(false);
