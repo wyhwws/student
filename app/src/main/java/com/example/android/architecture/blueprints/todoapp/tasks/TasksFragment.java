@@ -41,10 +41,13 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.android.architecture.blueprints.todoapp.R;
 import com.example.android.architecture.blueprints.todoapp.addedittask.AddEditTaskActivity;
 import com.example.android.architecture.blueprints.todoapp.data.Task;
 import com.example.android.architecture.blueprints.todoapp.taskdetail.TaskDetailActivity;
+
+import java.io.File;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -367,7 +370,9 @@ public class TasksFragment extends Fragment implements TasksContract.View {
 
             final Task task = Task.from(cursor);
             viewHolder.titleTV.setText(task.getTitleForList());
-
+            viewHolder.historyTV.setText(task.getHistoryForList());
+            File file = new File(task.getImageForList());
+            Glide.with(context).load(file).into(viewHolder.imageV);
             // Active/completed task UI
             viewHolder.completeCB.setChecked(task.isCompleted());
             viewHolder.completeCB.setOnClickListener(new View.OnClickListener() {
@@ -401,12 +406,16 @@ public class TasksFragment extends Fragment implements TasksContract.View {
         public static class ViewHolder {
             public final View rowView;
             public final TextView titleTV;
+            public final TextView historyTV;
             public final CheckBox completeCB;
+            public final ImageView imageV;
 
             public ViewHolder(View view) {
                 rowView = view;
                 titleTV = (TextView) view.findViewById(R.id.title);
+                historyTV = (TextView) view.findViewById(R.id.history);
                 completeCB = (CheckBox) view.findViewById(R.id.complete);
+                imageV = (ImageView) view.findViewById(R.id.imageV);
             }
         }
     }
