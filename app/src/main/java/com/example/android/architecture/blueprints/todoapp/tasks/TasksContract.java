@@ -25,6 +25,7 @@ import com.example.android.architecture.blueprints.todoapp.data.Task;
 
 /**
  * This specifies the contract between the view and the presenter.
+ * very good
  */
 public interface TasksContract {
 
